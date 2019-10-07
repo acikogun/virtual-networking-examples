@@ -1,0 +1,15 @@
+Vagrant.configure(2) do |config|
+  config.vm.define "host1" do |s1|
+      s1.vm.box = "ubuntu/bionic64"
+      s1.vm.network :private_network, ip: "192.168.50.10", virtualbox__intnet: "network0"
+      s1.vm.hostname = "host1"
+      s1.vm.provision "shell", path: "network-host1.sh"
+  end
+  config.vm.define "host2" do |s2|
+      s2.vm.box = "ubuntu/bionic64"
+      s2.vm.network :private_network, ip: "192.168.50.20", virtualbox__intnet: "network0"
+      s2.vm.hostname = "host2"
+      s2.vm.provision "shell", path: "network-host2.sh"
+  end
+  config.vm.box_check_update = false
+end
